@@ -7,7 +7,7 @@ $arr[8] = 'test';
 ```
 
 **Answer:** 
-  - [ ] 1 
+  - [X] 1 
   - [ ] 8 
   - [ ] 9
 
@@ -24,7 +24,7 @@ $c = $b;
 
 **Answer:**
   - [ ] 1
-  - [ ] 2
+  - [X] 2 // $c=$b is copying by reference for PHP4+, no instanciation here 
   - [ ] 3
 
 ## 3. What is the output of the following snippets?
@@ -39,7 +39,12 @@ $nb = (int) implode('', $arr);
 echo $nb;
 ```
 
-**Answer:** ?
+**Answer:** 31 
+```php 
+// This is because $item++ only affect the local variable $item in the foreach loop which is irrelevant outside of the loop and especially not affecting in anyway the array $arr;
+// PHP has no issue here transtyping type from string returned by implode to int as given string is "31", converted int is 31. 
+``` 
+
 
 B.
 ```php
@@ -49,7 +54,13 @@ $b = "4{$b}";
 echo $a . ',' . $b++;
 ```
 
-**Answer:** ?
+**Answer:** 41,41
+```php 
+// & is reference affectation, which means any operation on $b will change the memory reserved area also pointed by $a;
+// Here "4{$b}" is just the string "41" when we affect this string to $b we also change $a value to "41". 
+// echo $b++ just echo $b before incrementing because "$b++" returns $b then add 1 to $b
+// Note : if we wrote echo $a . ',' . ++$b; here it would print 41,42
+``` 
 
 ## 4. Which PHP code snippet shows an example of Dependency Injection?
 
@@ -87,7 +98,7 @@ C.
 ```
 
 **Answer:**
-  - [ ] A
+  - [X] A
   - [ ] B
   - [ ] C
 
@@ -109,7 +120,7 @@ class MyClass
 }
 ```
    
-**Answer** : ?
+**Answer** : This is the Factory design pattern used to given parameters does the job of finding the best class to instanciate. 
    
 #### Design Pattern #2   
 
@@ -152,5 +163,5 @@ class MyClass
 }
 ```
 
-**Answer** : ?
-
+**Answer** : This is the ITERATOR design pattern, here this class MyClass does implements the Iterator Interface from PHP and it should be added in its declaration. 
+It will consequently be able to be iterated other with by the "foreach" keywords for exemple. 

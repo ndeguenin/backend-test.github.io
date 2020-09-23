@@ -56,17 +56,11 @@ class QueenAttack
             return true;
         }
 
-        // Check if same diagonal (best algo considering a NxN grid complexity : O(N)
-        for ($k=0; $k<8; $k++) {
-            // TOP LEFT
-            $topLeft = [$white[0] - $k, $white[1] - $k];
-            $topRight = [$white[0] + $k, $white[1] - $k];
-            $botLeft = [$white[0] - $k, $white[1] + $k];
-            $botRight = [$white[0] + $k, $white[1] + $k];
-            if ($topLeft == $black || $topRight == $black || $botLeft == $black || $botRight == $black) {
-                return true;
-            }
-        }
+        // Check if same diagonal (best algo considering a NxN grid complexity : O(1)
+		$diff = abs($white[0] - $black[0]);
+		if ($white[0] + $diff == $black[1] || $white[0] - $diff == $black[1]) {
+			return true;
+		}		
 
         // Otherwise
         return false;
